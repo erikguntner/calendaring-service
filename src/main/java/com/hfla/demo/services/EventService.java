@@ -40,14 +40,13 @@ public class EventService {
     // Instant start = ZonedDateTime.now().toInstant();
     // Instant end = start.plus(10, ChronoUnit.DAYS);
     Instant start = LocalDate.now().atTime(14, 0).toInstant(ZoneOffset.UTC);
-    Instant end = start.plus(7, ChronoUnit.DAYS);
-    System.out.println("start: " + start);
-    System.out.println("start: " + end);
+    Instant end = start.plus(14, ChronoUnit.DAYS);
 
 
-    EventQuery query = new EventQuery().calendarId(primaryCalendar.getId()).startsAfter(start).startsBefore(end).limit(50);
-    RemoteCollection<Event> events = account.events().list();
+    EventQuery query = new EventQuery().calendarId(primaryCalendar.getId()).startsAfter(start).endsBefore(end).limit(50);
+    RemoteCollection<Event> events = account.events().list(query);
 
     return events;
   }
+  
 }
