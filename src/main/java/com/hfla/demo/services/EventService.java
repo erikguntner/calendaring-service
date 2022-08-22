@@ -2,9 +2,9 @@ package com.hfla.demo.services;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +15,7 @@ import com.nylas.Event;
 import com.nylas.EventQuery;
 import com.nylas.NylasAccount;
 import com.nylas.NylasClient;
+import com.nylas.RemoteCollection;
 import com.nylas.RequestFailedException;
 
 @Component
@@ -32,15 +33,20 @@ public class EventService {
   }
 
   // The the next 50 events from the next 30 days
-  public List<Event> getEvents() throws IOException, RequestFailedException {
+  public RemoteCollection<Event> getEvents() throws IOException, RequestFailedException {
     NylasAccount account = client.account(accessToken);
     Calendar primaryCalendar = calendarService.getPrimaryCalendar();
 
-    Instant start = ZonedDateTime.now().toInstant();
-    Instant end = start.plus(10, ChronoUnit.DAYS);
+    // Instant start = ZonedDateTime.now().toInstant();
+    // Instant end = start.plus(10, ChronoUnit.DAYS);
+    Instant start = LocalDate.now().atTime(14, 0).toInstant(ZoneOffset.UTC);
+    Instant end = start.plus(7, ChronoUnit.DAYS);
+    System.out.println("start: " + start);
+    System.out.println("start: " + end);
+
 
     EventQuery query = new EventQuery().calendarId(primaryCalendar.getId()).startsAfter(start).startsBefore(end).limit(50);
-    List<Event> events = account.events().list(query).fetchAll();
+    RemoteCollection<Event> events = account.events().list();
 
     return events;
   }

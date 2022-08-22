@@ -87,12 +87,11 @@ public class CalendarService {
 
     FreeBusyCalendars freeBusyCalendars = new FreeBusyCalendars(accountId, Collections.singletonList(calendarId));
       SingleAvailabilityQuery query = new SingleAvailabilityQuery()
-          .durationMinutes(30)
-          .startTime(Instant.now())
-          .endTime(Instant.now()
-          .plus(4, ChronoUnit.HOURS))
-          .intervalMinutes(10)
-          .calendars(freeBusyCalendars);
+        .startTime(Instant.now().minus(10, ChronoUnit.HOURS))
+        .endTime(Instant.now().plus(4, ChronoUnit.HOURS))
+        .durationMinutes(30)
+        .intervalMinutes(10)
+        .calendars(freeBusyCalendars);
     Availability availability = calendars.availability(query);
     
     return availability.getTimeSlots();

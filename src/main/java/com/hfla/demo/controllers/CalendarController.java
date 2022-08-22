@@ -47,7 +47,7 @@ public class CalendarController {
   }
 
   @GetMapping(path = "/events")
-  public List<Event> getEvents() throws IOException, RequestFailedException {
+  public RemoteCollection<Event> getEvents() throws IOException, RequestFailedException {
       return eventService.getEvents();
   }
 }
