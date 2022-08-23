@@ -19,12 +19,15 @@ public class AuthService {
     @Value("${nylas.client.secret}")
     private String clientSecret;
 
+    @Value("${nylas.redirect.uri}")
+    private String redirectUri;
+
     public String hostedAuthUrlRedirect() {
       NylasClient client = new NylasClient();
       NylasApplication application = client.application(clientId, clientSecret);
       HostedAuthentication authentication = application.hostedAuthentication();
       String url = authentication.urlBuilder()
-          .redirectUri("http://localhost:8081/auth/callback")
+          .redirectUri(redirectUri)
           .responseType("code")
           .scopes(Scope.CALENDAR, Scope.CALENDAR_READ_ONLY)
           .state("example_csrf_token")
