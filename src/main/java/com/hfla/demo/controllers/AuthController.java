@@ -33,4 +33,9 @@ public class AuthController {
   public String getToken(@RequestParam("code") String code) throws IOException, RequestFailedException {
     return authService.getAccessToken(code);
   }
+
+  @GetMapping(path = "/login/native")
+  public ModelAndView loginNative() throws IOException {
+    return new ModelAndView(authService.nativeAuthRedirect());
+  }
 }
