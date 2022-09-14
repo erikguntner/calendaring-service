@@ -101,8 +101,10 @@ public class CalendarService {
       NylasAccount account = client.account(accessToken);
       Calendar primaryCalendar = getPrimaryCalendar();
       String calendarId = primaryCalendar.getId();
+      System.out.println(primaryCalendar);
 
-      EventQuery query = new EventQuery().calendarId(calendarId).limit(5);
+
+      EventQuery query = new EventQuery().calendarId(calendarId).startsAfter(Instant.now()).limit(5);
       RemoteCollection<Event> events = account.events().list(query);
 
       return events;
