@@ -5,6 +5,7 @@ The Calendaring Service is an integration service that serves as a building bloc
 Make sure you have Postgres and a recent version of JDK and Maven installed on your computer. These intructions are for VSCode users:
 
 1. Clone the repository to your machine
-2. From within the parent directory run `mvn spring-boot:run` in your terminal
+2. Sign up for a [Nylas](https://www.nylas.com/) account and get add your credentials to a `.env` file in the base of your directory.
+3. From within the parent directory run `mvn spring-boot:run` in your terminal
 
 That's it! Your calendaring microservice should be up and running. In order to test the endpoints you will need to use Postman or your preferred API testing tool.
